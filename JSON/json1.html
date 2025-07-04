@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 1:  Create a JSON</title>
+        <style>
+            body, h2{
+            font-family: "Arial", sans-serif;
+            font-weight: lighter;
+            font-size: small;
+            }
+        </style>
+</head>
+<body>
+    <h2>Part 1:  Create a JSON</h2>
+    <script>
+        const song_list = [
+        { title: "In the Essence", artist: "Ted", year: 2022, genre: ["indie", "pop"] },
+        { title: "Lonely Boy", artist: "The Black Keys", year: 2011, genre: ["rock"] },
+        { title: "Fishin' in the Dark", artist: "Nitty Gritty Dirt Band", year: 1987, genre: ["country"] },
+        { title: "God Needs The Devil", artist: "Jonah Kagen", year: 2023, genre: ["indie"] },
+        { title: "Charismatic", artist: "Hailey Knox", year: 2019, genre: ["pop"] },
+        { title: "Dernière danse", artist: "Indila", year: 2013, genre: ["pop"] },
+        { title: "Kill For Your Love", artist: "Labrinth", year: 2023, genre: ["electronic", "soul"] },
+        { title: "STRINGS", artist: "MAX", year: 2023, genre: ["pop", "funk"] },
+        { title: "Two Sides", artist: "Masego", year: 2023, genre: ["jazz", "r&b"] },
+        { title: "MILLION DOLLAR BABY", artist: "Tommy Richman", year: 2024, genre: ["funk", "r&b"] }
+        ];
+        const json_to_string = JSON.stringify(song_list, null, 4);
+
+        document.write('<pre>' + json_to_string + '</pre>');
+
+    </script>
+</body>
+</html>
