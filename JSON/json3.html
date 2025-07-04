@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 3: Filter the data</title>
+    <style>
+        body, h2{
+        font-family: "Arial", sans-serif;
+        font-weight: lighter;
+        font-size: small;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <h2>Part 3: Filter the data</h2>
+
+  <label for="genre_select">Genre:</label>
+  <select id="genre_select"></select>
+  <button id="filter">Filter</button>
+
+  <div id="result" style="margin-top: 20px;"></div>
+
+ <script>
+    let songs = [];
+    $.get("songs.json", function(data) {
+      songs = data;
+      let genres = [];
+
+      for (let i = 0; i < songs.length; i++) {
+        for (let j = 0; j < songs[i].genre.length; j++) {
+          let g = songs[i].genre[j];
+          if (!genres.includes(g)) {
+            genres.push(g);
+          }
+        }
+      }
+
+      let select = document.getElementById("genre_select");
+      for (let i = 0; i < genres.length; i++) {
+        let option = document.createElement("option");
+        option.value = genres[i];
+        option.textContent = genres[i];
+        select.appendChild(option);
+      }
+    });
+
+    document.getElementById("filter").addEventListener("click", function() {
+      let selected_genre = document.getElementById("genre_select").value;
+      let output = "";
+
+      for (let i = 0; i < songs.length; i++) {
+        if (songs[i].genre.includes(selected_genre)) {
+          output += "<p>" + songs[i].title + "</p>";
+        }
+      }
+
+      document.getElementById("result").innerHTML = output;
+    });
+  </script>
+</body>
+</html>
