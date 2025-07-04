@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 2: Read a JSON from a file</title>
+    <style>
+        body, h2{
+        font-family: "Arial", sans-serif;
+        font-weight: lighter;
+        font-size: small;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h2>Part 2: Read a JSON from a file</h2><br>
+    <div id="songs"></div>
+    <script>
+        $.get("songs.json", function(response) {
+            let output = "";
+
+        for (let i = 0; i < response.length; i++) {
+            const song = response[i];
+            // output = song.title;
+            output += `
+            <div style="margin-bottom: 1em;">
+                <strong>${song.title}</strong><br>
+                Artist: ${song.artist}<br>
+                Genre: ${song.genre.join(", ")}<br>
+                Released: ${song.year}
+            </div>
+            `;
+        }
+        console.log(output);
+        document.getElementById("songs").innerHTML = output;
+    });
+    </script>
+</body>
+</html>
