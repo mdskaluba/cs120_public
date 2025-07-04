@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/toggle_style.css">
     <link rel="stylesheet" href="css/keyboard_grid_styles.css">
+    <link rel="stylesheet" href="css/tooltip_styles.css">
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -95,7 +96,18 @@
             <div id="grid"></div>
         </div>
         <div id="keyboard"></div>
+        <div class="input-with-tooltip">
         <input type="text" id="virtual-input" maxlength="5" readonly />
+        <div class="tooltip-container" aria-label="Color meaning guide">
+            <span class="info-icon">☰</span>
+            <div class="tooltip-text">
+            <strong>Color Guide:</strong><br>
+            <span style="color:#c1c1c1">Gray</span>:&emsp;Letter not in word<br>
+            <span style="color:#F8C2E4;">Pink</span>:&emsp;&nbsp;Letter is in the word, wrong spot<br>
+            <span style="color:#B889FC;">Purple</span>:&nbsp;Correct letter and position
+            </div>
+        </div>
+        </div>
         <button id="restart-game" style="display: none;">New Game</button>
     </div>
 
