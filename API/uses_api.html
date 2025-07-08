@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bars in Your City</title>
+    <style>
+        body{
+            font-family: "Arial", sans-serif;
+            font-weight: lighter;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bars in Your City</h1>
+    <label>Enter City Name:</label>
+    <input type="text" id="cityInput" placeholder="e.g., Boston">
+    <button onclick="searchBars()">Search</button>
+    <div id="results"></div>
+
+    <script>
+    async function searchBars() {
+        const city = document.getElementById("cityInput").value.trim();
+        const query = `
+        [out:json];
+        area["name"="${city}"][admin_level=8];
+        node["amenity"="bar"](area);
+        out;
+        `.trim();
+
+        const url = "https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(query);
+        document.getElementById("results").innerHTML = "Searching...";
+
+        try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.elements.length) {
+            document.getElementById("results").innerHTML = `<p>No bars found in ${city}.</p>`;
+            return;
+        }
+
+        let output = `<h2>Bars in ${city}</h2>`;
+        data.elements.forEach(bar => {
+            const name = bar.tags?.name || "Unnamed Bar";
+            const address = `${bar.tags["addr:housenumber"] || ""} ${bar.tags["addr:street"] || ""}`;
+            const hours = bar.tags?.opening_hours ? `<br>Hours: ${bar.tags.opening_hours}` : "";
+            const website = bar.tags?.website ? `<br><a href="${bar.tags.website}" target="_blank">Visit Website</a>` : "";
+
+            output += `
+            <div>
+                <strong>${name}</strong><br>
+                ${address}
+                ${hours}
+                ${website}
+            </div><br>
+            `;
+        });
+
+        document.getElementById("results").innerHTML = output;
+        } catch (error) {
+        console.error(error);
+        document.getElementById("results").innerHTML = `<p>Error fetching data. Try a different city.</p>`;
+        }
+    }
+    </script>
+</body>
+</html>
