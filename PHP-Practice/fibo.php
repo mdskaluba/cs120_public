@@ -1,5 +1,5 @@
 <?php
-$n = $_GET['n'];
+$n = isset($_GET['n']) ? intval($_GET['n']) : 0;
 $fib = array();
 
 if ($n >= 1) {
@@ -8,7 +8,6 @@ if ($n >= 1) {
 if ($n >= 2) {
     $fib[] = 1;
 }
-
 for ($i = 2; $i < $n; $i++) {
     $fib[] = $fib[$i - 1] + $fib[$i - 2];
 }
